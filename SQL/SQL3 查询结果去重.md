@@ -17,8 +17,7 @@
 代码：
 
 ```sql
-SELECT university 
-FROM user_profile 
-GROUP BY  UNIVERSITY
+SELECT DISTINCT university 
+FROM user_profile
 ```
 

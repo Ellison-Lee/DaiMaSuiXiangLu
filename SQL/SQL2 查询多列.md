@@ -17,7 +17,6 @@
 代码：
 
 ```sql
-SELECT device_id,gender,age,university 
-FROM user_profile
+SELECT device_id,gender,age,university FROM user_profile
 ```
 

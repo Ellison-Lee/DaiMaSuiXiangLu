@@ -52,9 +52,7 @@ FROM table_name AS tn;
 
 假设 `employees` 表的数据如下：
 
-employee_id first_name last_name salary department_id
-
-|      |         |         |       |      |
+| employee_id | first_name | last_name | salary | department_id |
 | ---- | ------- | ------- | ----- | ---- |
 | 1    | Alice   | Smith   | 60000 | 101  |
 | 2    | Bob     | Johnson | 70000 | 101  |
@@ -90,9 +88,7 @@ FROM employees;
 
 **结果：**
 
-first_name last_name salary
-
-|         |         |       |
+| first_name | last_name | salary |
 | ------- | ------- | ----- |
 | Alice   | Smith   | 60000 |
 | Bob     | Johnson | 70000 |
@@ -108,9 +104,7 @@ SELECT first_name AS fname, last_name AS lname FROM employees;
 
 **结果：**
 
-fname lname
-
-|         |         |
+| fname | lname |
 | ------- | ------- |
 | Alice   | Smith   |
 | Bob     | Johnson |
@@ -201,9 +195,7 @@ WHERE salary > 60000;
 
 **结果：**
 
-employee_id first_name last_name salary department_id
-
-|      |       |         |       |      |
+| employee_id | first_name | last_name | salary | department_id |
 | ---- | ----- | ------- | ----- | ---- |
 | 2    | Bob   | Johnson | 70000 | 101  |
 | 4    | David | Davis   | 80000 | 102  |
@@ -242,9 +234,7 @@ FROM employees;
 
 **结果：**
 
-department_id
-
-|      |
+| department_id |
 | ---- |
 | 101  |
 | 102  |
@@ -341,9 +331,7 @@ ORDER BY salary DESC;
 
 **结果：**
 
-employee_id first_name last_name salary
-
-|      |         |         |       |
+| employee_id | first_name | last_name | salary |
 | ---- | ------- | ------- | ----- |
 | 5    | Eve     | White   | 90000 |
 | 4    | David   | Davis   | 80000 |
@@ -755,9 +743,7 @@ FROM employees;
 
 **结果：**
 
-total_salary
-
-|        |
+| total_salary |
 | ------ |
 | 300000 |
 
@@ -770,9 +756,7 @@ FROM employees;
 
 **结果：**
 
-average_salary
-
-|       |
+| average_salary |
 | ----- |
 | 75000 |
 
@@ -785,9 +769,7 @@ FROM employees;
 
 **结果：**
 
-count_salary
-
-|      |
+| count_salary |
 | ---- |
 | 4    |
 
@@ -800,9 +782,7 @@ FROM employees;
 
 **结果：**
 
-max_salary
-
-|       |
+| max_salary |
 | ----- |
 | 90000 |
 
@@ -815,9 +795,7 @@ FROM employees;
 
 **结果：**
 
-min_salary
-
-|       |
+| min_salary |
 | ----- |
 | 60000 |
 
@@ -854,9 +832,7 @@ FROM
 
 执行上述查询后，结果如下：
 
-first_name last_name ceil_salary floor_salary round_salary
-
-|         |         |      |      |      |
+| first_name | last_name | ceil_salary | floor_salary | round_salary |
 | ------- | ------- | ---- | ---- | ---- |
 | Alice   | Smith   | 7    | 6    | 6    |
 | Bob     | Johnson | 8    | 7    | 7    |
@@ -948,10 +924,8 @@ first_name last_name ceil_salary floor_salary round_salary
 
    **结果：**
 
-   department_id average_salary
-
-   |      |       |
-   | ---- | ----- |
+   | department_id | average_salary |
+| ---- | ----- |
    | 101  | 65000 |
    | 102  | 65000 |
    | 103  | 90000 |
@@ -977,10 +951,8 @@ first_name last_name ceil_salary floor_salary round_salary
 
    **结果：**
 
-   department_id salary_range employee_count
-
-   |      |             |      |
-   | ---- | ----------- | ---- |
+   | department_id | salary_range | employee_count |
+| ---- | ----------- | ---- |
    | 101  | 60001-70000 | 2    |
    | 102  | 50000-60000 | 1    |
    | 102  | 70001-80000 | 1    |
@@ -999,10 +971,8 @@ first_name last_name ceil_salary floor_salary round_salary
 
    **结果：**
 
-   department_id total_salary
-
-   |      |        |
-   | ---- | ------ |
+   | department_id | total_salary |
+| ---- | ------ |
    | 102  | 130000 |
    | 103  | 90000  |
 
@@ -1019,10 +989,8 @@ first_name last_name ceil_salary floor_salary round_salary
 
    **结果：**
 
-   department_id average_salary
-
-   |      |       |
-   | ---- | ----- |
+   | department_id | average_salary |
+| ---- | ----- |
    | 103  | 90000 |
    | 102  | 65000 |
    | 101  | 65000 |
@@ -1183,9 +1151,7 @@ WHERE NOT EXISTS (
 
 **结果：**
 
-customer_id customer_name customer_email customer_age
-
-|      |         |                                                   |      |
+| customer_id | customer_name | customer_email | customer_age |
 | ---- | ------- | ------------------------------------------------- | ---- |
 | 3    | Charlie | [charlie@example.com](mailto:charlie@example.com) | 22   |
 
@@ -1197,9 +1163,7 @@ customer_id customer_name customer_email customer_age
 
 **`employees` 表：**
 
-employee_id first_name last_name department_id
-
-|      |         |         |      |
+| employee_id | first_name | last_name | department_id |
 | ---- | ------- | ------- | ---- |
 | 1    | Alice   | Smith   | 101  |
 | 2    | Bob     | Johnson | 102  |
@@ -1207,9 +1171,7 @@ employee_id first_name last_name department_id
 
 **`departments` 表：**
 
-department_id department_name
-
-|      |           |
+| department_id | department_name |
 | ---- | --------- |
 | 101  | Sales     |
 | 102  | Marketing |
@@ -1240,9 +1202,7 @@ ON e.department_id = d.department_id;
 
 **结果：**
 
-employee_id first_name last_name department_name
-
-|      |       |         |           |
+| employee_id | first_name | last_name | department_name |
 | ---- | ----- | ------- | --------- |
 | 1    | Alice | Smith   | Sales     |
 | 2    | Bob   | Johnson | Marketing |
@@ -1273,9 +1233,7 @@ ON e.department_id = d.department_id;
 
 **结果：**
 
-employee_id first_name last_name department_name
-
-|      |         |         |           |
+| employee_id | first_name | last_name | department_name |
 | ---- | ------- | ------- | --------- |
 | 1    | Alice   | Smith   | Sales     |
 | 2    | Bob     | Johnson | Marketing |
@@ -1428,9 +1386,7 @@ FROM table2;
 
 **`employees` 表：**
 
-employee_id name role
-
-|      |         |           |
+| employee_id | name | role |
 | ---- | ------- | --------- |
 | 1    | Alice   | Developer |
 | 2    | Bob     | Manager   |
@@ -1438,9 +1394,7 @@ employee_id name role
 
 **`contractors` 表：**
 
-contractor_id name role
-
-|      |       |            |
+| contractor_id | name | role |
 | ---- | ----- | ---------- |
 | 1    | David | Consultant |
 | 2    | Eve   | Analyst    |
@@ -1460,9 +1414,7 @@ FROM contractors;
 
 **结果：**
 
-name role
-
-|         |            |
+| name | role |
 | ------- | ---------- |
 | Alice   | Developer  |
 | Bob     | Manager    |
@@ -1484,9 +1436,7 @@ FROM contractors;
 
 **结果：**
 
-name role
-
-|         |            |
+| name | role |
 | ------- | ---------- |
 | Alice   | Developer  |
 | Bob     | Manager    |
@@ -1509,9 +1459,7 @@ FROM contractors;
 
 **结果：**
 
-name role
-
-|       |           |
+| name | role |
 | ----- | --------- |
 | Alice | Developer |
 
@@ -1529,9 +1477,7 @@ FROM contractors;
 
 **结果：**
 
-name role
-
-|         |          |
+| name | role |
 | ------- | -------- |
 | Bob     | Manager  |
 | Charlie | Designer |
