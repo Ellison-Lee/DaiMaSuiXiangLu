@@ -69,9 +69,7 @@ FROM employees;
 
 **结果：**
 
-employee_id first_name last_name salary department_id
-
-|      |         |         |       |      |
+| employee_id | first_name | last_name | salary | department_id |
 | ---- | ------- | ------- | ----- | ---- |
 | 1    | Alice   | Smith   | 60000 | 101  |
 | 2    | Bob     | Johnson | 70000 | 101  |
@@ -173,9 +171,7 @@ LIMIT n;
 
 假设 `employees` 表的数据如下：
 
-employee_id first_name last_name salary department_id
-
-|      |         |         |       |      |
+| employee_id | first_name | last_name | salary | department_id |
 | ---- | ------- | ------- | ----- | ---- |
 | 1    | Alice   | Smith   | 60000 | 101  |
 | 2    | Bob     | Johnson | 70000 | 101  |
@@ -213,9 +209,7 @@ ORDER BY salary DESC;
 
 **结果：**
 
-employee_id first_name last_name salary department_id
-
-|      |         |         |       |      |
+| employee_id | first_name | last_name | salary | department_id |
 | ---- | ------- | ------- | ----- | ---- |
 | 5    | Eve     | White   | 90000 | 103  |
 | 4    | David   | Davis   | 80000 | 102  |
@@ -255,9 +249,7 @@ LIMIT 3;
 
 **结果：**
 
-employee_id first_name last_name salary department_id
-
-|      |       |         |       |      |
+| employee_id | first_name | last_name | salary | department_id |
 | ---- | ----- | ------- | ----- | ---- |
 | 5    | Eve   | White   | 90000 | 103  |
 | 4    | David | Davis   | 80000 | 102  |
@@ -465,9 +457,7 @@ WHERE salary > 60000;
 
 **结果：**
 
-employee_id first_name last_name salary department_id
-
-|      |       |         |       |      |
+| employee_id | first_name | last_name | salary | department_id |
 | ---- | ----- | ------- | ----- | ---- |
 | 2    | Bob   | Johnson | 70000 | 101  |
 | 4    | David | Davis   | 80000 | 102  |
@@ -503,9 +493,7 @@ WHERE department_id IN (101, 103);
 
 **结果：**
 
-employee_id first_name last_name salary department_id
-
-|      |       |         |       |      |
+| employee_id | first_name | last_name | salary | department_id |
 | ---- | ----- | ------- | ----- | ---- |
 | 1    | Alice | Smith   | 60000 | 101  |
 | 2    | Bob   | Johnson | 70000 | 101  |
@@ -925,7 +913,7 @@ FROM
    **结果：**
 
    | department_id | average_salary |
-| ---- | ----- |
+   | ---- | ----- |
    | 101  | 65000 |
    | 102  | 65000 |
    | 103  | 90000 |
@@ -952,7 +940,7 @@ FROM
    **结果：**
 
    | department_id | salary_range | employee_count |
-| ---- | ----------- | ---- |
+   | ---- | ----------- | ---- |
    | 101  | 60001-70000 | 2    |
    | 102  | 50000-60000 | 1    |
    | 102  | 70001-80000 | 1    |
@@ -972,7 +960,7 @@ FROM
    **结果：**
 
    | department_id | total_salary |
-| ---- | ------ |
+   | ---- | ------ |
    | 102  | 130000 |
    | 103  | 90000  |
 
@@ -990,7 +978,7 @@ FROM
    **结果：**
 
    | department_id | average_salary |
-| ---- | ----- |
+   | ---- | ----- |
    | 103  | 90000 |
    | 102  | 65000 |
    | 101  | 65000 |
@@ -1058,9 +1046,7 @@ WHERE salary > (
 
 **结果：**
 
-employee_id first_name last_name salary department_id
-
-|      |       |       |       |      |
+| employee_id | first_name | last_name | salary | department_id |
 | ---- | ----- | ----- | ----- | ---- |
 | 4    | David | Davis | 80000 | 102  |
 | 5    | Eve   | White | 90000 | 103  |
@@ -1265,9 +1251,7 @@ ON e.department_id = d.department_id;
 
 **结果：**
 
-employee_id first_name last_name department_name
-
-|      |       |         |           |
+| employee_id | first_name | last_name | department_name |
 | ---- | ----- | ------- | --------- |
 | 1    | Alice | Smith   | Sales     |
 | 2    | Bob   | Johnson | Marketing |
@@ -1299,9 +1283,7 @@ ON e.department_id = d.department_id;
 
 **结果：**
 
-employee_id first_name last_name department_name
-
-|      |         |         |           |
+| employee_id | first_name | last_name | department_name |
 | ---- | ------- | ------- | --------- |
 | 1    | Alice   | Smith   | Sales     |
 | 2    | Bob     | Johnson | Marketing |
@@ -1486,5 +1468,902 @@ FROM contractors;
 
 通过使用 `UNION` 和 `UNION ALL`，可以将多个查询的结果集合并成一个结果集。`UNION` 会自动去除重复的行，而 `UNION ALL` 会保留所有重复行。此外，`INTERSECT` 用于返回两个结果集的交集，`EXCEPT` 或 `MINUS` 用于返回两个结果集的差集。掌握这些组合查询的用法，可以帮助你更灵活地处理和分析数据。
 
+### **条件函数**
 
+在 SQL 中，条件函数用于根据特定条件返回不同的值。这些函数可以帮助你在查询中实现复杂的逻辑，使查询结果更符合业务需求。以下是一些常用的条件函数及其用法。
 
+#### **1. `IF` 函数**
+
+`IF` 函数用于根据条件返回两个值中的一个。它类似于编程语言中的 `if-else` 语句。
+
+##### **语法：**
+
+```sql
+IF(condition, true_value, false_value)
+```
+
+- **`condition`**：条件表达式。
+- **`true_value`**：如果条件为 `TRUE`，则返回的值。
+- **`false_value`**：如果条件为 `FALSE`，则返回的值。
+
+#### **2. `CASE` 语句**
+
+`CASE` 语句用于根据多个条件返回不同的值。它类似于编程语言中的 `switch-case` 语句。
+
+##### **语法：**
+
+```sql
+CASE
+    WHEN condition1 THEN result1
+    WHEN condition2 THEN result2
+    ...
+    ELSE default_result
+END
+```
+
+#### **3. `COALESCE` 函数**
+
+`COALESCE` 函数用于返回参数列表中的第一个非 `NULL` 值。如果没有非 `NULL` 值，则返回 `NULL`。
+
+##### **语法：**
+
+```sql
+COALESCE(value1, value2, ...)
+```
+
+#### **4. `NULLIF` 函数**
+
+`NULLIF` 函数用于比较两个值，如果它们相等，则返回 `NULL`，否则返回第一个值。
+
+##### **语法：**
+
+```sql
+NULLIF(value1, value2)
+```
+
+#### **5. `IFNULL` 函数**
+
+`IFNULL` 用于检查一个值是否为 `NULL`，如果是 `NULL`，则返回一个指定的默认值。
+
+##### **语法**
+
+```sql
+IFNULL(expression, default_value)
+```
+
+- **`expression`**：要检查的表达式。
+- **`default_value`**：如果 `expression` 为 `NULL`，则返回的默认值。
+
+##### **与其他函数的比较**
+
+- **`COALESCE`**：
+  - `COALESCE` 函数可以接受多个参数，并返回第一个非 `NULL` 的值。
+  - 如果所有参数都是 `NULL`，则返回 `NULL`。
+  - 语法：`COALESCE(value1, value2, ...)`。
+  - 示例：`COALESCE(salary, 0, 'Not Available')`。
+- **`IF`**：
+  - `IF` 函数用于根据条件返回两个值中的一个。
+  - 语法：`IF(condition, true_value, false_value)`。
+  - 示例：`IF(salary IS NULL, 0, salary)`。
+
+#### **示例：**
+
+假设有一个 `employees` 表，包含以下数据：
+
+| employee_id | first_name | last_name | salary |
+| ---- | ------- | ------- | ----- |
+| 1    | Alice   | Smith   | 60000 |
+| 2    | Bob     | Johnson | 70000 |
+| 3    | Charlie | Brown   | 50000 |
+
+##### **`IF` 函数**
+
+查询每个员工的工资级别，如果工资大于 60000，则为 "High"，否则为 "Low"：
+
+```sql
+SELECT 
+    employee_id, 
+    first_name, 
+    last_name, 
+    salary, 
+    IF(salary > 60000, 'High', 'Low') AS salary_level
+FROM 
+    employees;
+```
+
+**结果：**
+
+| employee_id | first_name | last_name | salary | salary_level |
+| ---- | ------- | ------- | ----- | ---- |
+| 1    | Alice   | Smith   | 60000 | Low  |
+| 2    | Bob     | Johnson | 70000 | High |
+| 3    | Charlie | Brown   | 50000 | Low  |
+
+##### **`CASE`语句**
+
+查询每个员工的工资级别，如果工资大于 70000，则为 "High"，如果工资在 50000 到 70000 之间，则为 "Medium"，否则为 "Low"：
+
+```sql
+SELECT 
+    employee_id, 
+    first_name, 
+    last_name, 
+    salary, 
+    CASE 
+        WHEN salary > 70000 THEN 'High'
+        WHEN salary BETWEEN 50000 AND 70000 THEN 'Medium'
+        ELSE 'Low'
+    END AS salary_level
+FROM 
+    employees;
+```
+
+**结果：**
+
+| employee_id | first_name | last_name | salary | salary_level |
+| ---- | ------- | ------- | ----- | ------ |
+| 1    | Alice   | Smith   | 60000 | Medium |
+| 2    | Bob     | Johnson | 70000 | Medium |
+| 3    | Charlie | Brown   | 50000 | Low    |
+
+##### **`NULLIF`函数**
+
+查询每个员工的工资，如果工资等于 60000，则返回 `NULL`：
+
+```sql
+SELECT 
+    employee_id, 
+    first_name, 
+    last_name, 
+    NULLIF(salary, 60000) AS salary
+FROM 
+    employees;
+```
+
+**结果：**
+
+| employee_id | first_name | last_name | salary |
+| ---- | ------- | ------- | ----- |
+| 1    | Alice   | Smith   | NULL  |
+| 2    | Bob     | Johnson | 70000 |
+| 3    | Charlie | Brown   | 50000 |
+
+##### **`COALESCE` 函数**
+
+假设有一个 `employees` 表，包含以下数据：
+
+| employee_id | first_name | last_name | salary |
+| ---- | ------- | ------- | ----- |
+| 1    | Alice   | Smith   | 60000 |
+| 2    | Bob     | Johnson | NULL  |
+| 3    | Charlie | Brown   | 50000 |
+
+查询每个员工的工资，如果工资为 `NULL`，则返回默认值 0：
+
+```sql
+SELECT 
+    employee_id, 
+    first_name, 
+    last_name, 
+    COALESCE(salary, 0) AS salary
+FROM 
+    employees;
+```
+
+**结果：**
+
+employee_id first_name last_name salary
+
+|      |         |         |       |
+| ---- | ------- | ------- | ----- |
+| 1    | Alice   | Smith   | 60000 |
+| 2    | Bob     | Johnson | 0     |
+| 3    | Charlie | Brown   | 50000 |
+
+##### **`IFNULL` 函数**
+
+查询每个员工的工资，如果工资为 `NULL`，则返回字符串 "Not Available"：
+
+```sql
+SELECT 
+    employee_id, 
+    first_name, 
+    last_name, 
+    IFNULL(salary, 'Not Available') AS salary
+FROM 
+    employees;
+```
+
+**结果：**
+
+| employee_id | first_name | last_name | salary |
+| ---- | ------- | ------- | ------------- |
+| 1    | Alice   | Smith   | 60000         |
+| 2    | Bob     | Johnson | Not Available |
+| 3    | Charlie | Brown   | 50000         |
+
+### **总结**
+
+通过使用条件函数，如 `IF`、`CASE`、`IFNULL`、`COALESCE` 和 `NULLIF`，可以在 SQL 查询中实现复杂的逻辑，使查询结果更符合业务需求。这些函数在处理 `NULL` 值、条件判断和多条件分支时非常有用。掌握这些函数的用法，可以帮助你更灵活地处理和分析数据。
+
+# **日期函数**
+
+在 SQL 中，日期函数用于处理和操作日期和时间数据。这些函数可以帮助你执行各种日期相关的操作，如提取日期部分、计算日期差、格式化日期等。以下是一些常用的日期函数及其用法。
+
+#### **1. 获取当前日期和时间**
+
+- **`NOW()`**：返回当前日期和时间。
+- **`CURDATE()`**：返回当前日期。
+- **`CURTIME()`**：返回当前时间。
+
+##### **示例：**
+
+```sql
+SELECT NOW() AS current_datetime, CURDATE() AS current_date, CURTIME() AS current_time;
+```
+
+**结果：**
+
+| current_datetime | current_date | current_time |
+| ------------------- | ---------- | -------- |
+| 2025-04-01 17:48:56 | 2025-04-01 | 17:48:56 |
+
+#### **2. 提取日期部分**
+
+- **`YEAR(date)`**：提取日期的年份部分。
+- **`MONTH(date)`**：提取日期的月份部分。
+- **`DAY(date)`**：提取日期的日部分。
+- **`HOUR(time)`**：提取时间的小时部分。
+- **`MINUTE(time)`**：提取时间的分钟部分。
+- **`SECOND(time)`**：提取时间的秒部分。
+
+#### **3. 日期计算**
+
+- **`DATE_ADD(date, INTERVAL expr type)`**：在日期上加上一个时间间隔。
+- **`DATE_SUB(date, INTERVAL expr type)`**：从日期中减去一个时间间隔。
+- **`DATEDIFF(date1, date2)`**：计算两个日期之间的天数差。
+
+#### **4. 格式化日期**
+
+- **`DATE_FORMAT(date, format)`**：将日期格式化为指定的格式。
+
+#### **5. 其他日期函数**
+
+- **`DAYOFWEEK(date)`**：返回日期是星期几（1 = 星期天，2 = 星期一，...，7 = 星期六）。
+- **`DAYOFYEAR(date)`**：返回日期是一年中的第几天。
+- **`WEEK(date)`**：返回日期是一年中的第几周。
+- **`LAST_DAY(date)`**：返回指定日期所在月份的最后一天。
+
+### **示例**
+
+假设有一个 `employees` 表，包含以下数据：
+
+| employee_id | first_name | last_name | hire_date |
+| ---- | ------- | ------- | ---------- |
+| 1    | Alice   | Smith   | 2021-01-15 |
+| 2    | Bob     | Johnson | 2022-02-20 |
+| 3    | Charlie | Brown   | 2023-03-10 |
+
+##### **提取日期部分**
+
+查询每个员工的入职年份、月份和日期：
+
+```sql
+SELECT 
+    employee_id, 
+    first_name, 
+    last_name, 
+    hire_date, 
+    YEAR(hire_date) AS hire_year, 
+    MONTH(hire_date) AS hire_month, 
+    DAY(hire_date) AS hire_day
+FROM 
+    employees;
+```
+
+**结果：**
+
+| employee_id | first_name | last_name | hire_date | hire_year | hire_month | hire_day |
+| ---- | ------- | ------- | ---------- | ---- | ---- | ---- |
+| 1    | Alice   | Smith   | 2021-01-15 | 2021 | 1    | 15   |
+| 2    | Bob     | Johnson | 2022-02-20 | 2022 | 2    | 20   |
+| 3    | Charlie | Brown   | 2023-03-10 | 2023 | 3    | 10   |
+
+##### **日期计算**
+
+查询每个员工入职后的第 100 天：
+
+```sql
+SELECT 
+    employee_id, 
+    first_name, 
+    last_name, 
+    hire_date, 
+    DATE_ADD(hire_date, INTERVAL 100 DAY) AS hundred_days_later
+FROM 
+    employees;
+```
+
+**结果：**
+
+employee_id first_name last_name hire_date hundred_days_later
+
+|      |         |         |            |            |
+| ---- | ------- | ------- | ---------- | ---------- |
+| 1    | Alice   | Smith   | 2021-01-15 | 2021-04-25 |
+| 2    | Bob     | Johnson | 2022-02-20 | 2022-05-31 |
+| 3    | Charlie | Brown   | 2023-03-10 | 2023-06-18 |
+
+##### **格式化日期**
+
+查询每个员工的入职日期，并按 `YYYY-MM` 格式返回：
+
+```sql
+SELECT 
+    employee_id, 
+    first_name, 
+    last_name, 
+    DATE_FORMAT(hire_date, '%Y-%m') AS formatted_hire_date
+FROM 
+    employees;
+```
+
+**结果：**
+
+| employee_id | first_name | last_name | formatted_hire_date |
+| ---- | ------- | ------- | ------- |
+| 1    | Alice   | Smith   | 2021-01 |
+| 2    | Bob     | Johnson | 2022-02 |
+| 3    | Charlie | Brown   | 2023-03 |
+
+##### **其他日期函数**
+
+查询每个员工入职日期的星期几和所在月份的最后一天：
+
+```sql
+SELECT 
+    employee_id, 
+    first_name, 
+    last_name, 
+    hire_date, 
+    DAYOFWEEK(hire_date) AS day_of_week, 
+    LAST_DAY(hire_date) AS last_day_of_month
+FROM 
+    employees;
+```
+
+**结果：**
+
+| employee_id | first_name | last_name | hire_date | day_of_week | last_day_of_month |
+| ---- | ------- | ------- | ---------- | ---- | ---------- |
+| 1    | Alice   | Smith   | 2021-01-15 | 6    | 2021-01-31 |
+| 2    | Bob     | Johnson | 2022-02-20 | 1    | 2022-02-28 |
+| 3    | Charlie | Brown   | 2023-03-10 | 6    | 2023-03-31 |
+
+# **文本函数**
+
+在 SQL 中，文本函数用于处理和操作字符串数据。这些函数可以帮助你执行各种字符串相关的操作，如连接字符串、提取子字符串、转换大小写等。以下是一些常用的文本函数及其用法。
+
+#### **1. 字符串连接**
+
+- **`CONCAT(string1, string2, ...)`**：将多个字符串连接成一个字符串。
+
+#### **2. 字符串长度**
+
+- **`LENGTH(string)`**：返回字符串的长度（以字节为单位）。
+- **`CHAR_LENGTH(string)`**：返回字符串的长度（以字符为单位）。
+
+> 对于单字节字符（如 ASCII 字符），LENGTH 和 CHAR_LENGTH 的结果是相同的。但对于多字节字符（如 UTF-8 编码的 Unicode 字符），LENGTH 会返回更多的字节数。
+>
+> 在处理多字节字符时，建议使用 CHAR_LENGTH，因为它能更准确地反映字符串的字符数。
+
+#### **3. 字符串大小写转换**
+
+- **`UPPER(string)`**：将字符串转换为大写。
+- **`LOWER(string)`**：将字符串转换为小写。
+
+#### **4. 字符串截取**
+
+- **`SUBSTRING(string, start, length)`**：从字符串中提取子字符串。
+
+#### **5. 字符串替换**
+
+- **`REPLACE(string, search, replace)`**：在字符串中查找并替换指定的子字符串。
+
+#### **6. 去除空格**
+
+- **`TRIM(string)`**：去除字符串两端的空格。
+- **`LTRIM(string)`**：去除字符串左端的空格。
+- **`RTRIM(string)`**：去除字符串右端的空格。
+
+#### **7. 字符串比较**
+
+- **`STRCMP(string1, string2)`**：比较两个字符串，返回 0 表示相等，返回负数表示 `string1` 小于 `string2`，返回正数表示 `string1` 大于 `string2`。
+
+### **示例：**
+
+假设有一个 `employees` 表，包含以下数据：
+
+| employee_id | first_name | last_name |
+| ---- | ------- | ------- |
+| 1    | Alice   | Smith   |
+| 2    | Bob     | Johnson |
+| 3    | Charlie | Brown   |
+
+##### **字符串连接**
+
+查询每个员工的全名：
+
+```sql
+SELECT 
+    employee_id, 
+    CONCAT(first_name, ' ', last_name) AS full_name
+FROM 
+    employees;
+```
+
+**结果：**
+
+| employee_id | full_name |
+| ---- | ------------- |
+| 1    | Alice Smith   |
+| 2    | Bob Johnson   |
+| 3    | Charlie Brown |
+
+##### **字符串长度**
+
+查询每个员工的名字长度：
+
+```sql
+SELECT 
+    employee_id, 
+    first_name, 
+    LENGTH(first_name) AS length_in_bytes, 
+    CHAR_LENGTH(first_name) AS length_in_characters
+FROM 
+    employees;
+```
+
+**结果：**
+
+| employee_id | first_name | length_in_bytes | length_in_characters |
+| ---- | ------- | ---- | ---- |
+| 1    | Alice   | 5    | 5    |
+| 2    | Bob     | 3    | 3    |
+| 3    | Charlie | 7    | 7    |
+
+##### **字符串大小写转换**
+
+查询每个员工的名字的大写和小写形式：
+
+```sql
+SELECT 
+    employee_id, 
+    first_name, 
+    UPPER(first_name) AS upper_name, 
+    LOWER(first_name) AS lower_name
+FROM 
+    employees;
+```
+
+**结果：**
+
+| employee_id | first_name | upper_name | lower_name |
+| ---- | ------- | ------- | ------- |
+| 1    | Alice   | ALICE   | alice   |
+| 2    | Bob     | BOB     | bob     |
+| 3    | Charlie | CHARLIE | charlie |
+
+##### **字符串截取**
+
+查询每个员工名字的前 3 个字符：
+
+```sql
+SELECT 
+    employee_id, 
+    first_name, 
+    SUBSTRING(first_name, 1, 3) AS substring_name
+FROM 
+    employees;
+```
+
+**结果：**
+
+| employee_id | first_name | substring_name |
+| ---- | ------- | ---- |
+| 1    | Alice   | Ali  |
+| 2    | Bob     | Bob  |
+| 3    | Charlie | Cha  |
+
+##### **字符串替换**
+
+查询每个员工名字中的 'a' 替换为 'x'：
+
+```sql
+SELECT 
+    employee_id, 
+    first_name, 
+    REPLACE(first_name, 'a', 'x') AS replaced_name
+FROM 
+    employees;
+```
+
+**结果：**
+
+employee_id first_name replaced_name
+
+|      |         |          |
+| ---- | ------- | -------- |
+| 1    | Alice   | Alixe    |
+| 2    | Bob     | Bob      |
+| 3    | Charlie | Chxrxlie |
+
+##### **字符串比较**
+
+查询每个员工的名字是否等于 'Alice'：
+
+```sql
+SELECT 
+    employee_id, 
+    first_name, 
+    STRCMP(first_name, 'Alice') AS comparison_result
+FROM 
+    employees;
+```
+
+**结果：**
+
+| employee_id | first_name | comparison_result |
+| ---- | ------- | ---- |
+| 1    | Alice   | 0    |
+| 2    | Bob     | 1    |
+| 3    | Charlie | 1    |
+
+##### **去除空格**
+
+假设有一个 `employees` 表，包含以下数据：（由于显示原因，以‘-’表示空格）
+
+| employee_id | first_name | last_name |
+| ---- | ------- | --------- |
+| 1    | --Alice | Smith-    |
+| 2    | Bob     | --Johnson |
+| 3    | Charlie | Brown     |
+
+查询每个员工的名字和姓氏，去除两端的空格：
+
+```sql
+SELECT 
+    employee_id, 
+    TRIM(first_name) AS trimmed_first_name, 
+    TRIM(last_name) AS trimmed_last_name
+FROM 
+    employees;
+```
+
+**结果：**
+
+| employee_id | trimmed_first_name | trimmed_last_name |
+| ---- | ------- | ------- |
+| 1    | Alice   | Smith   |
+| 2    | Bob     | Johnson |
+| 3    | Charlie | Brown   |
+
+# 排序和排名窗口函数
+
+`RANK()`、`DENSE_RANK()` 和 `ROW_NUMBER()` 都是 SQL 中的窗口函数，用于为结果集中的行分配排名或序号。它们的主要区别在于处理并列排名时的行为。以下是它们的详细对比：
+
+### **1. `ROW_NUMBER()`**
+
+`ROW_NUMBER()` 为每一行分配一个唯一的序号，序号从 1 开始，按指定的排序规则递增。即使有并列的行，`ROW_NUMBER()` 也会为每一行分配一个唯一的序号。
+
+#### **语法**
+
+```
+ROW_NUMBER() OVER (
+    [PARTITION BY column1, column2, ...]
+    ORDER BY column1 [ASC|DESC], column2 [ASC|DESC], ...
+)
+```
+
+- `PARTITION BY`：可选，用于将数据分组，窗口函数在每个分组内独立计算。
+- `ORDER BY`：指定排序规则，必须包含至少一个列。
+
+#### **行为：**
+
+- 每一行都被分配一个唯一的序号。
+- 即使有并列的行，序号也不会重复。
+
+### **2. `RANK()`**
+
+`RANK()` 为每一行分配一个排名，如果有并列的行，则会分配相同的排名，但后续的排名会跳过一些数字。
+
+#### **语法**
+
+```
+RANK() OVER (
+    [PARTITION BY column1, column2, ...]
+    ORDER BY column1 [ASC|DESC], column2 [ASC|DESC], ...
+)
+```
+
+- `PARTITION BY`：可选，用于将数据分组，窗口函数在每个分组内独立计算。
+- `ORDER BY`：指定排序规则，必须包含至少一个列。
+
+#### **行为：**
+
+- 如果有并列的行，它们会被分配相同的排名。
+- 后续的排名会跳过一些数字，以保持总排名的连续性。
+
+### **3. `DENSE_RANK()`**
+
+`DENSE_RANK()` 为每一行分配一个排名，即使有并列的行，也不会跳过任何排名，始终保持连续。
+
+#### **语法**
+
+```
+DENSE_RANK() OVER (
+    [PARTITION BY column1, column2, ...]
+    ORDER BY column1 [ASC|DESC], column2 [ASC|DESC], ...
+)
+```
+
+- `PARTITION BY`：可选，用于将数据分组，窗口函数在每个分组内独立计算。
+- `ORDER BY`：指定排序规则，必须包含至少一个列。
+
+#### **行为：**
+
+- 如果有并列的行，它们会被分配相同的排名。
+- 后续的排名不会跳过任何数字，始终保持连续。
+
+### **示例：**
+
+假设有一个表 `scores`，数据如下：
+
+| id | score |
+| ---- | ---- |
+| 1    | 90   |
+| 2    | 85   |
+| 3    | 90   |
+| 4    | 80   |
+
+#### 使用 `ROW_NUMBER()`：
+
+```sql
+SELECT id, score, ROW_NUMBER() OVER (ORDER BY score DESC) AS row_num
+FROM scores;
+```
+
+结果：
+
+| id | score | row_num |
+| ---- | ---- | ---- |
+| 1    | 90   | 1    |
+| 3    | 90   | 2    |
+| 2    | 85   | 3    |
+| 4    | 80   | 4    |
+
+解释：
+
+- 每一行都被分配了一个唯一的序号。
+- 即使有两个 `90` 的行，它们也被分配了不同的序号 `1` 和 `2`。
+
+#### **使用 `RANK()`：**
+
+```sql
+SELECT id, score, RANK() OVER (ORDER BY score DESC) AS rank
+FROM scores;
+```
+
+结果：
+
+| id | score | rank |
+| ---- | ---- | ---- |
+| 1    | 90   | 1    |
+| 3    | 90   | 1    |
+| 2    | 85   | 3    |
+| 4    | 80   | 4    |
+
+解释：
+
+- 两个 `90` 的行都被分配了排名 `1`。
+- 排名 `2` 被跳过，因为有两个并列的 `1`。
+- 排名 `3` 是下一个可用的排名。
+
+#### **使用 `DENSE_RANK()`：**
+
+```sql
+SELECT id, score, DENSE_RANK() OVER (ORDER BY score DESC) AS dense_rank
+FROM scores;
+```
+
+结果：
+
+| id | score | dense_rank |
+| ---- | ---- | ---- |
+| 1    | 90   | 1    |
+| 3    | 90   | 1    |
+| 2    | 85   | 2    |
+| 4    | 80   | 3    |
+
+解释：
+
+- 两个 `90` 的行都被分配了排名 `1`。
+- 排名 `2` 是下一个可用的排名，即使有两个并列的 `1`。
+- 排名 `3` 是下一个可用的排名。
+
+### **4. 总结**
+
+- **`ROW_NUMBER()`**：
+  - 为每一行分配一个唯一的序号。
+  - 即使有并列的行，序号也不会重复。
+  - 适用于需要唯一标识每一行的场景。
+- **`RANK()`**：
+  - 为每一行分配一个排名。
+  - 如果有并列的行，会分配相同的排名。
+  - 后续的排名会跳过一些数字，以保持总排名的连续性。
+  - 适用于需要反映并列情况的场景。
+- **`DENSE_RANK()`**：
+  - 为每一行分配一个排名。
+  - 即使有并列的行，也不会跳过任何排名，始终保持连续。
+  - 适用于需要保持排名连续的场景。
+
+### **选择建议**
+
+- 如果你需要为每一行分配一个唯一的序号，使用 `ROW_NUMBER()`。
+- 如果你需要反映并列情况，并且可以接受跳过排名，使用 `RANK()`。
+- 如果你需要保持排名连续，即使有并列，使用 `DENSE_RANK()`。
+
+# 数学函数
+
+### **1. 基本数学函数**
+
+- **`ABS(x)`**：返回 `x` 的绝对值。
+- **`CEIL(x)`** 或 **`CEILING(x)`**：返回大于或等于 `x` 的最小整数。
+- **`FLOOR(x)`**：返回小于或等于 `x` 的最大整数。
+- **`ROUND(x, n)`**：将 `x` 四舍五入到 `n` 位小数。
+- **`TRUNC(x, n)`**：将 `x` 截断到 `n` 位小数（在某些数据库系统中，如 Oracle）。
+
+### **2. 三角函数**
+
+- **`SIN(x)`**：返回 `x` 的正弦值。
+- **`COS(x)`**：返回 `x` 的余弦值。
+- **`TAN(x)`**：返回 `x` 的正切值。
+- **`ASIN(x)`**：返回 `x` 的反正弦值。
+- **`ACOS(x)`**：返回 `x` 的反余弦值。
+- **`ATAN(x)`**：返回 `x` 的反正切值。
+
+### **3. 指数和对数函数**
+
+- **`EXP(x)`**：返回 `e` 的 `x` 次幂。
+- **`LN(x)`**：返回 `x` 的自然对数。
+- **`LOG(x)`**：返回 `x` 的以 10 为底的对数。
+- **`LOG2(x)`**：返回 `x` 的以 2 为底的对数。
+
+### **4. 幂函数**
+
+- **`POWER(x, y)`**：返回 `x` 的 `y` 次幂。
+- **`SQRT(x)`**：返回 `x` 的平方根。
+
+### **5. 随机函数**
+
+- **`RAND()`**：返回一个在 0 到 1 之间的随机数。
+- **`RANDOM()`**：返回一个在 0 到 1 之间的随机数（在某些数据库系统中，如 PostgreSQL）。
+
+### **6. 其他数学函数**
+
+- **`GREATEST(x, y, ...)`**：返回参数中的最大值。
+- **`LEAST(x, y, ...)`**：返回参数中的最小值。
+- **`MOD(x, y)`**：返回 `x` 除以 `y` 的余数。
+
+### **示例**
+
+假设有一个表 `numbers`，包含以下数据：
+
+| id | value |
+| ---- | ----- |
+| 1    | 3.14  |
+| 2    | -2.71 |
+| 3    | 1.41  |
+
+#### **示例 1：基本数学函数**
+
+```sql
+SELECT 
+    id, 
+    value, 
+    ABS(value) AS absolute_value, 
+    CEIL(value) AS ceiling_value, 
+    FLOOR(value) AS floor_value, 
+    ROUND(value, 2) AS rounded_value
+FROM 
+    numbers;
+```
+
+**结果：**
+
+| id | value | absolute_value | ceiling_value | floor_value | rounded_value |
+| ---- | ----- | ---- | ---- | ---- | ----- |
+| 1    | 3.14  | 3.14 | 4    | 3    | 3.14  |
+| 2    | -2.71 | 2.71 | -2   | -3   | -2.71 |
+| 3    | 1.41  | 1.41 | 2    | 1    | 1.41  |
+
+#### **示例 2：三角函数**
+
+```sql
+SELECT 
+    id, 
+    value, 
+    SIN(value) AS sine_value, 
+    COS(value) AS cosine_value, 
+    TAN(value) AS tangent_value
+FROM 
+    numbers;
+```
+
+**结果：**
+
+| id | value | sine_value | cosine_value | tangent_value |
+| ---- | ----- | ------------ | ------------ | ----------- |
+| 1    | 3.14  | 0.00159265   | -0.999999999 | -0.00159265 |
+| 2    | -2.71 | -0.420201004 | -0.912945251 | 0.460170004 |
+| 3    | 1.41  | 0.987346029  | 0.158333152  | 6.236147292 |
+
+#### **示例 3：指数和对数函数**
+
+```sql
+SELECT 
+    id, 
+    value, 
+    EXP(value) AS exponential_value, 
+    LN(value) AS natural_logarithm, 
+    LOG(value) AS common_logarithm
+FROM 
+    numbers;
+```
+
+**结果：**
+
+| id | value | exponential_value | natural_logarithm | common_logarithm |
+| ---- | ----- | ------------- | ------------ | ------------ |
+| 1    | 3.14  | 23.104000057  | 1.144223892  | 0.496929648  |
+| 2    | -2.71 | 0.06598803585 | -0.997547553 | -0.432659903 |
+| 3    | 1.41  | 4.103566842   | 0.343323839  | 0.150162647  |
+
+#### **示例 4：幂函数**
+
+```sql
+SELECT 
+    id, 
+    value, 
+    POWER(value, 2) AS squared_value, 
+    SQRT(value) AS square_root
+FROM 
+    numbers;
+```
+
+**结果：**
+
+| id | value | squared_value | square_root |
+| ---- | ----- | ------ | ----------- |
+| 1    | 3.14  | 9.8596 | 1.772004515 |
+| 2    | -2.71 | 7.3441 | NULL        |
+| 3    | 1.41  | 1.9881 | 1.187434209 |
+
+#### **示例 5：随机函数**
+
+```sql
+SELECT 
+    id, 
+    value, 
+    RAND() AS random_value
+FROM 
+    numbers;
+```
+
+**结果：**
+
+| id | value | random_value |
+| ---- | ----- | ----------- |
+| 1    | 3.14  | 0.123456789 |
+| 2    | -2.71 | 0.987654321 |
+| 3    | 1.41  | 0.543210987 |
