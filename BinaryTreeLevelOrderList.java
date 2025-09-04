@@ -11,7 +11,7 @@ class TreeNode {
 
 public class BinaryTreeLevelOrderList {
 
-    // 方式1：遍历过程中直接打印每层节点（不存储结果）
+    // 遍历过程中直接打印每层节点（不存储结果）
     public void levelOrderPrint(TreeNode root) {
         if (root == null) {
             return;
@@ -22,7 +22,6 @@ public class BinaryTreeLevelOrderList {
 
         while (!queue.isEmpty()) {
             int levelSize = queue.size();
-            System.out.print("当前层节点: ");
             
             // 遍历当前层节点并打印
             for (int i = 0; i < levelSize; i++) {
@@ -53,7 +52,7 @@ public class BinaryTreeLevelOrderList {
         BinaryTreeLevelOrderList traversal = new BinaryTreeLevelOrderList();
 
         // 直接打印每层
-        System.out.println("方式1 - 分层打印：");
+        System.out.println("分层打印：");
         traversal.levelOrderPrint(root);
     }
 }
