@@ -4,12 +4,11 @@
 
 具体运行流程如下：
 
-1. [SparkContext](https://zhida.zhihu.com/search?content_id=183329413&content_type=Article&match_order=1&q=SparkContext&zhida_source=entity) 向资源管理器注册并向资源管理器申请运行 [Executor](https://zhida.zhihu.com/search?content_id=183329413&content_type=Article&match_order=1&q=Executor&zhida_source=entity)
-2. 资源管理器分配 Executor，然后资源管理器启动 Executor
+1. SparkContext 向资源管理器注册并向资源管理器申请运行，Executor资源管理器分配 Executor，然后资源管理器启动 Executor
 3. Executor 发送心跳至资源管理器
 4. **SparkContext 构建 DAG 有向无环图**
-5. **将 DAG 分解成 Stage（TaskSet）**
-6. **把 Stage 发送给 [TaskScheduler](https://zhida.zhihu.com/search?content_id=183329413&content_type=Article&match_order=1&q=TaskScheduler&zhida_source=entity)**
+5. **将 DAG 分解成 Stage**
+6. **把 Stage 发送给 TaskScheduler**
 7. **Executor 向 SparkContext 申请 Task**
 8. **TaskScheduler 将 Task 发送给 Executor 运行**
 9. **同时 SparkContext 将应用程序代码发放给 Executor**
@@ -31,15 +30,15 @@ RDD 的数据默认存放在内存中，但是当内存资源不足时，spark �
 
 ## RDD 中 reduceBykey 与 groupByKey 哪个性能好，为什么？
 
-**[reduceByKey](https://zhida.zhihu.com/search?content_id=183329413&content_type=Article&match_order=1&q=reduceByKey&zhida_source=entity)**：reduceByKey 会在结果发送至 reducer 之前会对每个 mapper 在本地进行 merge，有点类似于在 [MapReduce](https://zhida.zhihu.com/search?content_id=183329413&content_type=Article&match_order=1&q=MapReduce&zhida_source=entity) 中的 combiner。这样做的好处在于，在 map 端进行一次 reduce 之后，数据量会大幅度减小，从而减小传输，保证 reduce 端能够更快的进行结果计算。
+**reduceByKey**：reduceByKey 会在结果发送至 reducer 之前会对每个 mapper 在本地进行 merge，有点类似于在 MapReduce 中的 combiner。这样做的好处在于，在 map 端进行一次 reduce 之后，数据量会大幅度减小，从而减小传输，保证 reduce 端能够更快的进行结果计算。
 
-**groupByKey**：groupByKey 会对每一个 RDD 中的 value 值进行聚合形成一个序列(Iterator)，此操作发生在 reduce 端，所以势必会将所有的数据通过网络进行传输，造成不必要的浪费。同时如果数据量十分大，可能还会造成 OutOfMemoryError。
+**groupByKey**：groupByKey 会对每一个 RDD 中的 value 值进行聚合形成一个序列，此操作发生在 reduce 端，所以势必会将所有的数据通过网络进行传输，造成不必要的浪费。同时如果数据量十分大，可能还会造成 OOM（Out Of Memory）。
 
 所以在进行大量数据的 reduce 操作时候建议使用 reduceByKey。不仅可以提高速度，还可以防止使用 groupByKey 造成的内存溢出问题。
 
 ## 介绍一下 cogroup rdd 实现原理，你在什么场景下用过这个 rdd？
 
-**cogroup**：对多个（2~4）RDD 中的 KV 元素，每个 RDD 中相同 key 中的元素分别聚合成一个集合。
+在 Spark 中，`cogroup`（co-group）是一种对多个 RDD 进行分组关联的操作，其核心原理是将多个 RDD 中具有相同 key 的数据聚合到一起，形成一个以 key 为键、以各 RDD 中对应 value 集合为值的新 RDD。
 
 **与 reduceByKey 不同的是**：reduceByKey 针对**一个 RDD**中相同的 key 进行合并。而 cogroup 针对**多个 RDD**中相同的 key 的元素进行合并。
 
@@ -57,10 +56,9 @@ RDD 的数据默认存放在内存中，但是当内存资源不足时，spark �
 
 ## 为什么要设计宽窄依赖？
 
-1. *对于窄依赖*：
-   窄依赖的多个分区可以并行计算；
-   窄依赖的一个分区的数据如果丢失只需要重新计算对应的分区的数据就可以了。
-2. *对于宽依赖*：
+1. **对于窄依赖：**
+   窄依赖的多个分区可以并行计算；窄依赖的一个分区的数据如果丢失只需要重新计算对应的分区的数据就可以了。
+2. **对于宽依赖：**
    划分 Stage(阶段)的依据:对于宽依赖,必须等到上一阶段计算完成才能计算下一阶段。
 
 ## DAG 是什么？
@@ -70,7 +68,7 @@ DAG(Directed Acyclic Graph 有向无环图)指的是数据转换执行的过程�
 
 ## DAG 中为什么要划分 Stage？
 
-并行计算。
+为了并行计算。
 
 一个复杂的业务逻辑如果有 shuffle，那么就意味着前面阶段产生结果后，才能执行下一个阶段，即下一个阶段的计算要依赖上一个阶段的数据。那么我们按照 shuffle 进行划分(也就是按照宽依赖就行划分)，就可以将一个 DAG 划分成多个 Stage/阶段，在同一个 Stage 中，会有多个算子操作，可以形成一个 pipeline 流水线，流水线内的多个平行的分区可以并行执行。
 
@@ -87,8 +85,6 @@ DAG(Directed Acyclic Graph 有向无环图)指的是数据转换执行的过程�
 **从后往前回溯/反向解析，遇到窄依赖加入本 Stage，遇见宽依赖进行 Stage 切分。**
 
 Spark 内核会从触发 Action 操作的那个 RDD 开始**从后往前推**，首先会为最后一个 RDD 创建一个 Stage，然后继续倒推，如果发现对某个 RDD 是宽依赖，那么就会将宽依赖的那个 RDD 创建一个新的 Stage，那个 RDD 就是新的 Stage 的最后一个 RDD。 然后依次类推，继续倒推，根据窄依赖或者宽依赖进行 Stage 的划分，直到所有的 RDD 全部遍历完成为止。
-
-
 
 ## 对于 Spark 中的数据倾斜问题你有什么好的方案？
 
@@ -107,13 +103,13 @@ Spark 内核会从触发 Action 操作的那个 RDD 开始**从后往前推**，
    - 避免分区过多（增加调度开销）或过少（数据倾斜）。
 2. **减少 Shuffle 数据量**
    - 提前过滤：用`filter`/`where`剔除无关数据，减少参与 Shuffle 的记录数。
-   - 选择合适 Join 策略：小表用广播 Join（`broadcast()`），避免 Shuffle；大表 Join 时只保留必要字段。
+   - 选择合适 Join 策略：大表 Join 时只保留必要字段。
    - 复用数据：缓存（`cache()`/`persist()`）频繁使用的中间结果，避免重复计算和 Shuffle。
 3. **优化数据倾斜**
    - 加盐处理：对倾斜 Key 添加随机前缀，分散到多个分区处理后再合并。
    - 拆分倾斜数据集：将倾斜 Key 单独处理（如广播小表对应部分），其余正常 Join 后汇总。
 4. **避免不必要的 Shuffle**
-   - 用`mapPartitions`替代`map`，减少跨分区操作。
+   - 小表用广播 Join（`broadcast()`），避免 Shuffle。
    - 相同 Key 的聚合操作优先用`reduceByKey`（局部聚合后全局聚合）而非`groupByKey`（直接 Shuffle 所有数据）。
 
 ## Spark 中的 OOM 问题？
@@ -124,7 +120,6 @@ Spark 内核会从触发 Action 操作的那个 RDD 开始**从后往前推**，
 2. **优化内存使用**
    - 减少大对象创建：避免频繁创建临时对象，使用对象池复用对象，避免内存泄漏（如未释放的资源、静态集合无限制存储）。
    - 数据分片处理：大文件 / 数据集分片加载，避免一次性全量加载到内存。
-   - 选择高效数据结构：如用基本类型数组替代包装类集合，使用稀疏数据结构存储稀疏数据。
 3. **针对性场景优化**
    - **Spark 任务**：避免宽表 join，使用广播变量减小 shuffle 数据量，启用内存管理（如`spark.memory.offHeap.enabled`开启堆外内存）。
 4. **代码逻辑优化**
@@ -177,7 +172,7 @@ Spark 内核会从触发 Action 操作的那个 RDD 开始**从后往前推**，
 
    ## Spark 与 MapReduce 的 Shuffle 的区别？
 
-   1. **处理模式**：MapReduce 的 Shuffle 是磁盘级操作，中间结果需写入磁盘，IO 开销大；Spark 的 Shuffle 优先使用内存缓冲，减少磁盘 IO，仅在内存不足时溢写磁盘。
+   1. **处理模式**：MapReduce 的 Shuffle 是磁盘级操作，中间结果需写入磁盘，IO 开销大；Spark 的 Shuffle 优先使用内存，减少磁盘 IO，仅在内存不足时溢写磁盘。
    2. **阶段划分**：MapReduce 的 Shuffle 严格对应 Map 和 Reduce 阶段，流程固定死；Spark 的 Shuffle 更灵活，可根据算子（如 reduceByKey、join 等）动态适配，支持多种 Shuffle 策略（如 Hash、Sort 等）。
    3. **数据处理效率**：Spark 通过内存迭代计算和流水线优化，避免 MapReduce 中多次磁盘读写和任务启动开销，Shuffle 性能通常更高。
    4. **容错机制**：MapReduce 依赖磁盘存储中间结果实现容错；Spark 基于 RDD 的 lineage 机制，通过内存数据和 checkpoint 实现容错，恢复更高效。

@@ -1,5 +1,18 @@
+/**
+ * LeetCode 541. 反转字符串 II
+ * 
+ * 描述：给定一个字符串 s 和一个整数 k，从字符串开头算起，每计数至 2k 个字符，就反转这 2k 字符中的前 k 个字符。
+ * - 如果剩余字符少于 k 个，则将剩余字符全部反转。
+ * - 如果剩余字符小于 2k 但大于或等于 k 个，则反转前 k 个字符，其余字符保持原样。
+ * 
+ * 示例：
+ * 输入：s = "abcdefg", k = 2
+ * 输出："bacdfeg"
+ * 
+ * 输入：s = "abcd", k = 2
+ * 输出："bacd"
+ */
 public class RverseStringWithK {
-    public class ReverseStringWithK {
     public static String reverseStr(String s, int k) {
         // 将字符串转换为字符数组以便修改
         char[] arr = s.toCharArray();
@@ -27,7 +40,6 @@ public class RverseStringWithK {
             start++;
             end--;
         }
-    }
     
     public static void main(String[] args) {
         
@@ -40,6 +52,4 @@ public class RverseStringWithK {
         System.out.println(reverseStr("abcd", 2));  // 输出: "bacd"
         System.out.println(reverseStr("abcdefghij", 3));  // 输出: "cbadefihgj"
     }
-}
-    
 }
