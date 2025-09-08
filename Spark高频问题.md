@@ -44,7 +44,7 @@ RDD 的数据默认存放在内存中，但是当内存资源不足时，spark �
 
 **cogroup 的函数实现**：这个实现根据要进行合并的两个 RDD 操作，生成一个 CoGroupedRDD 的实例，这个 RDD 的返回结果是把相同的 key 中两个 RDD 分别进行合并操作，最后返回的 RDD 的 value 是一个 Pair 的实例，这个实例包含两个 Iterable 的值，第一个值表示的是 RDD1 中相同 KEY 的值，第二个值表示的是 RDD2 中相同 key 的值。
 
-由于做 cogroup 的操作，需要通过 partitioner 进行重新分区的操作，因此，执行这个流程时，需要执行一次 [shuffle](https://zhida.zhihu.com/search?content_id=183329413&content_type=Article&match_order=1&q=shuffle&zhida_source=entity) 的操作(如果要进行合并的两个 RDD 的都已经是 shuffle 后的 rdd，同时他们对应的 partitioner 相同时，就不需要执行 shuffle)。
+由于做 cogroup 的操作，需要通过 partitioner 进行重新分区的操作，因此，执行这个流程时，需要执行一次 shuffle 的操作(如果要进行合并的两个 RDD 的都已经是 shuffle 后的 rdd，同时他们对应的 partitioner 相同时，就不需要执行 shuffle)。
 
 **场景**：表关联查询或者处理重复的 key。
 
@@ -132,7 +132,7 @@ Spark 内核会从触发 Action 操作的那个 RDD 开始**从后往前推**，
 
 每个数据分片都对应具体物理位置，数据的位置是被**blockManager**管理，无论数据是在磁盘，内存还是 tacyan，都是由 blockManager 管理。
 
-##  Spaek 程序执行，有时候默认为什么会产生很多 task，怎么修改默认 task 执行个数？
+##  Spark 程序执行，有时候默认为什么会产生很多 task，怎么修改默认 task 执行个数？
 
 默认情况下，task 数量较多通常与以下因素相关：
 

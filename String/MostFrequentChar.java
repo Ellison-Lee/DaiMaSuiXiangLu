@@ -25,7 +25,7 @@ public class MostFrequentChar {
         
         // 统计每个字符出现的次数
         for (int i = 0; i < s.length(); i++) {
-            char c = s.charAt(i);
+            char c = s.charAt(i); //返回索引i处的字符
             count[c]++;
         }
         
