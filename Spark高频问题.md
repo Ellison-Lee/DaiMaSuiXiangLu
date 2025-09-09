@@ -19,7 +19,7 @@
 1. master：管理集群和节点，不参与计算。
 2. worker：计算节点，进程本身不参与计算，和 master 汇报。
 3. Driver：运行程序的 main 方法，创建 spark context 对象。
-4. spark context：控制整个 application 的生命周期，包括 dagsheduler 和 task scheduler 等组件。
+4. spark context：控制整个 application 的生命周期，包括 dag sheduler 和 task scheduler 等组件。
 5. client：用户提交程序的入口。
 
 ## Spark 中的 RDD 机制理解吗？
@@ -195,7 +195,7 @@ Spark 内核会从触发 Action 操作的那个 RDD 开始**从后往前推**，
 
    **不同点**：
 
-   1. 计算模型：Hadoop 基于 MapReduce，采用 "磁盘 IO + 批处理" 模式，中间结果写入磁盘；Spark 基于内存计算，中间结果优先存内存，支持迭代计算
+   1. 计算模型：Hadoop 基于 MapReduce，中间结果写入磁盘；Spark 基于内存计算，中间结果优先存内存，支持迭代计算
    2. 适用场景：Hadoop 适合离线批处理（如日志分析）；Spark 除批处理外，还支持流处理（Spark Streaming）、机器学习（MLlib）等
    3. 编程模型：Hadoop 需编写 Map 和 Reduce 函数；Spark 提供 RDD/DataFrame/Dataset 等高级 API，支持更多算子
    4. 资源管理：Hadoop 使用 YARN 管理资源；Spark 可运行在 YARN、Mesos 或独立集群上
